@@ -4,7 +4,7 @@ const cors = require('cors');
 const Redis = require("redis");
 const client = Redis.createClient();
 
-const DEFAULT_EXPIRATION = 3600;
+const Expire= 3600;
 
 const app = express()
 app.use(express.urlencoded({extended: true}))
@@ -22,7 +22,7 @@ app.get("/images", async (req, res) => {
             )
             await client.setEx(
                 `photos?albumId=${albumId}`,
-                DEFAULT_EXPIRATION,
+                Expire,
                 JSON.stringify(data));
                  await client.disconnect();
             return res.status(200).send(data)
